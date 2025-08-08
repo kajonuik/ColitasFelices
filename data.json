@@ -1,0 +1,114 @@
+[
+  {
+    "id": "albergue-1",
+    "nombre": "Esperanza Patitas Iqueñas",
+    "ubicacion": "Urb. San Isidro, Ica, Perú",
+    "contacto": {
+      "telefono": "+51 987 654 321",
+      "email": "contacto@esperanzapatitas.pe",
+      "redesSociales": [
+        "https://facebook.com/esperanzapatitasica",
+        "https://instagram.com/esperanzapatitas"
+      ]
+    },
+    "descripcion": "Un refugio dedicado al rescate y rehabilitación de perros y gatos abandonados en la región de Ica, buscando siempre su segundo hogar.",
+    "mision": "Nuestra misión es educar a la comunidad sobre la tenencia responsable de mascotas y erradicar el abandono animal en Ica.",
+    "verificado": true,
+    "necesidadesUrgentes": [
+      "100 kg de comida para perro (adulto)",
+      "50 kg de comida para gatitos",
+      "Antiparasitarios internos y externos",
+      "Periódicos y sábanas viejas para camas",
+      "Voluntarios para limpieza y alimentación (mañanas)",
+      "Donaciones para esterilizaciones y castraciones"
+    ],
+    "animalesParaAdopcion": [
+      {
+        "id": "animal-101",
+        "nombre": "Pisco",
+        "especie": "Perro",
+        "raza": "Criollo",
+        "descripcion": "Pisco es un perro mestizo muy juguetón y amigable. Rescatado cerca de la Plaza de Armas, adora los paseos y es ideal para familias activas.",
+        "fotoURL": "https://placehold.co/600x400/F4A261/FFFFFF?text=Pisco"
+      },
+      {
+        "id": "animal-102",
+        "nombre": "Huacachina",
+        "especie": "Gato",
+        "raza": "Mestizo Americano",
+        "descripcion": "Huacachina es una gata curiosa y exploradora. Encontrada cerca de la laguna, le encanta observar desde las alturas y recibir caricias.",
+        "fotoURL": "https://placehold.co/600x400/2A9D8F/FFFFFF?text=Huacachina"
+      }
+    ]
+  },
+  {
+    "id": "albergue-2",
+    "nombre": "Manos Solidarias por los Animales",
+    "ubicacion": "Distrito de Parcona, Ica, Perú",
+    "contacto": {
+      "telefono": "+51 999 888 777",
+      "email": "info@manossolidarias.org.pe",
+      "redesSociales": [
+        "https://facebook.com/manossolidariasica",
+        "https://twitter.com/manossolidarias"
+      ]
+    },
+    "descripcion": "Nos enfocamos en el rescate de animales en zonas rurales y de escasos recursos en la provincia de Ica.",
+    "mision": "Proporcionar atención veterinaria, nutrición y un refugio seguro a animales en condiciones vulnerables, promoviendo su recuperación y adopción responsable.",
+    "verificado": true,
+    "necesidadesUrgentes": [
+      "Jaulas de transporte de metal",
+      "Suplementos vitamínicos para cachorros y gatitos",
+      "Voluntarios para campañas de sensibilización (domingos)",
+      "Arroz y pollo para dieta blanda de animales enfermos"
+    ],
+    "animalesParaAdopcion": [
+      {
+        "id": "animal-201",
+        "nombre": "Nazca",
+        "especie": "Perro",
+        "raza": "Poodle Mix",
+        "descripcion": "Nazca es una perrita de tamaño pequeño, muy dócil y dulce. Fue abandonada y ahora busca un hogar tranquilo donde la acojan con mucho amor.",
+        "fotoURL": "https://placehold.co/600x400/E76F51/FFFFFF?text=Nazca"
+      }
+    ]
+  },
+  {
+    "id": "albergue-3",
+    "nombre": "El Rincón del Gatuno Iqueño",
+    "ubicacion": "Centro de Ica, Perú",
+    "contacto": {
+      "telefono": "+51 977 666 555",
+      "email": "adopciones@rincongatuno.pe",
+      "redesSociales": [
+        "https://instagram.com/rincongatunoica"
+      ]
+    },
+    "descripcion": "Un hogar temporal y de tránsito exclusivo para gatos, con énfasis en la esterilización y el control de colonias felinas en la ciudad.",
+    "mision": "Mejorar la calidad de vida de los gatos callejeros y promover su adopción en hogares comprometidos de Ica.",
+    "verificado": false,
+    "necesidadesUrgentes": [
+      "Juguetes interactivos para gatos",
+      "Comida seca de alta calidad para gatos (todas las edades)",
+      "Voluntarios para socialización y juegos con gatos"
+    ],
+    "animalesParaAdopcion": [
+      {
+        "id": "animal-301",
+        "nombre": "Cachiche",
+        "especie": "Gato",
+        "raza": "Siamés Cruzado",
+        "descripcion": "Cachiche es un gato joven y muy curioso, con ojos azules penetrantes. Le encanta explorar y es muy juguetón, ideal para una casa con espacio.",
+        "fotoURL": "https://placehold.co/600x400/264653/FFFFFF?text=Cachiche"
+      },
+      {
+        "id": "animal-302",
+        "nombre": "Palpa",
+        "especie": "Gata",
+        "raza": "Bengalí Mix",
+        "descripcion": "Palpa es una gata muy independiente y elegante. Rescatada con sus crías, ahora busca un hogar tranquilo donde la mimen sin excesos.",
+        "fotoURL": "https://placehold.co/600x400/E9C46A/FFFFFF?text=Palpa"
+      }
+    ]
+  }
+]

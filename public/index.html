@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colitas Felices - Directorio de Albergues</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: linear-gradient(to bottom right, #f0f9ff, #e0f2fe); /* Degradado suave */
+        }
+        .shelter-card {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .shelter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<header class="bg-gradient-to-r from-teal-600 to-blue-700 text-white shadow-lg py-6">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+            <h1 class="text-4xl font-extrabold text-center sm:text-left">
+                <a href="/" class="text-white hover:text-gray-100 transition-colors">Colitas Felices</a>
+            </h1>
+            <nav class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
+                <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Directorio</a>
+                <a href="/contacto.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Contacto</a>
+                <a href="/nosotros.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Nosotros</a>
+            </nav>
+        </div>
+        <p class="text-lg opacity-90 text-center sm:text-left">Hogares donde empiezan nuevas vidas.</p>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 py-10">
+
+    <section id="shelter-list-section">
+        <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-teal-400 pb-3">Directorio de Albergues en Ica</h2>
+        <div id="shelter-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <p id="loading-message" class="text-center text-xl text-gray-600 col-span-full">Cargando albergues...</p>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-gray-800 text-white text-center p-4 mt-12">
+    <p>&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+</footer>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // DOM element references
+        const shelterListContainer = document.getElementById('shelter-list-container');
+        const loadingMessage = document.getElementById('loading-message');
+
+        /**
+         * Fetches the list of all shelters from the API and renders them.
+         */
+        async function loadShelters() {
+            try {
+                const response = await fetch('/api/albergues');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const shelters = await response.json();
+
+                loadingMessage.style.display = 'none'; // Hide loading message
+                shelterListContainer.innerHTML = ''; // Clear container
+
+                shelters.forEach(shelter => {
+                    const shelterCard = document.createElement('a'); // Cambiado a <a> para enlace
+                    shelterCard.href = `/albergues/${shelter.id}`; // Enlace a la nueva página
+                    shelterCard.className = 'shelter-card block bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200'; // Estilos mejorados
+                    shelterCard.dataset.id = shelter.id;
+
+                    shelterCard.innerHTML = `
+                            <h3 class="text-2xl font-bold text-blue-700 mb-2">${shelter.nombre} ${shelter.verificado ? '<span class="text-xs font-medium text-green-600 bg-green-100 rounded-full px-2 py-1 ml-2 align-middle">Verificado</span>' : '<span class="text-xs font-medium text-yellow-600 bg-yellow-100 rounded-full px-2 py-1 ml-2 align-middle">No Verificado</span>'}</h3>
+                            <p class="text-gray-600 mt-1 flex items-center"><svg class="w-4 h-4 mr-1 text-teal-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>${shelter.ubicacion}</p>
+                            <p class="text-gray-700 mt-4 text-base leading-relaxed">${shelter.descripcion}</p>
+                        `;
+
+                    // Ya no necesitamos el addEventListener para abrir modal, el 'href' se encarga
+                    shelterListContainer.appendChild(shelterCard);
+                });
+
+            } catch (error) {
+                console.error("Failed to load shelters:", error);
+                loadingMessage.textContent = 'Error al cargar los albergues. Intenta de nuevo más tarde.';
+                loadingMessage.className = 'text-center text-xl text-red-600 col-span-full'; // Color de error
+            }
+        }
+
+        // --- App Initialization ---
+        loadShelters();
+    });
+</script>
+</body>
+</html>

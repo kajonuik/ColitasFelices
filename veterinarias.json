@@ -1,0 +1,28 @@
+[
+  {
+    "id": "vet-1",
+    "nombre": "Clínica Veterinaria San Francisco",
+    "ubicacion": "Av. San Martín 123, Ica, Perú",
+    "telefono": "+51 912 345 678",
+    "email": "contacto@vetsanfrancisco.pe",
+    "servicios": [
+      "Consultas",
+      "Vacunación",
+      "Cirugías",
+      "Emergencias 24h"
+    ]
+  },
+  {
+    "id": "vet-2",
+    "nombre": "Veterinaria Huacachina",
+    "ubicacion": "Calle El Medano 456, Huacachina, Ica, Perú",
+    "telefono": "+51 976 543 210",
+    "email": "info@vethuacachina.com",
+    "servicios": [
+      "Placas de Rayos X",
+      "Ecografías",
+      "Laboratorio Clínico",
+      "Farmacia Veterinaria"
+    ]
+  }
+]
