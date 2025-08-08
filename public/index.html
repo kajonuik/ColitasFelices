@@ -3,31 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colitas Felices - Directorio de Albergues</title>
-
+    <title>Directorio de Albergues y Mascotas - Colitas Felices</title>
     <script src="https://cdn.tailwindcss.com"></script>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        /* Custom styles */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: linear-gradient(to bottom right, #f0f9ff, #e0f2fe); /* Degradado suave */
-        }
-        .shelter-card {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-        .shelter-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
+        body { font-family: 'Inter', sans-serif; background-image: linear-gradient(to bottom right, #f0f9ff, #e0f2fe); }
+        .card-container:empty { display: none; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
 <header class="bg-gradient-to-r from-teal-600 to-blue-700 text-white shadow-lg py-6">
     <div class="container mx-auto px-6">
@@ -36,7 +23,9 @@
                 <a href="/" class="text-white hover:text-gray-100 transition-colors">Colitas Felices</a>
             </h1>
             <nav class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
-                <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Directorio</a>
+                <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors bg-teal-700 bg-opacity-70">Directorio</a>
+                <a href="/veterinarias.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Veterinarias</a>
+                <a href="/donaciones.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Donaciones</a>
                 <a href="/contacto.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Contacto</a>
                 <a href="/nosotros.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Nosotros</a>
             </nav>
@@ -45,67 +34,221 @@
     </div>
 </header>
 
-<main class="container mx-auto px-6 py-10">
+<div class="container mx-auto px-6 mt-6">
+    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md">
+        <p class="font-bold">¡Asóciate con nosotros!</p>
+        <p class="text-sm">¿Eres una veterinaria y quieres llegar a más dueños de mascotas? ¡Contáctanos y anuncia tus servicios aquí! Ayúdanos a cuidar de las mascotas en Ica.</p>
+    </div>
+</div>
 
-    <section id="shelter-list-section">
-        <h2 class="text-3xl font-bold text-gray-900 mb-8 border-b-2 border-teal-400 pb-3">Directorio de Albergues en Ica</h2>
-        <div id="shelter-list-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <p id="loading-message" class="text-center text-xl text-gray-600 col-span-full">Cargando albergues...</p>
+<main class="container mx-auto px-6 py-10 flex-grow">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center sm:text-left">Directorio de Adopción</h2>
+
+    <div class="mb-8">
+        <input type="text" id="searchInput" placeholder="Buscar albergues o mascotas por nombre, ubicación, descripción..." class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500 transition-shadow">
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8">
+        <aside class="w-full md:w-1/4 p-6 bg-white rounded-lg shadow-lg border border-gray-200 sticky top-4 self-start">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b border-gray-200">Filtrar por</h3>
+            <div class="space-y-6">
+                <div>
+                    <label for="filterEspecie" class="block text-sm font-medium text-gray-700">Especie</label>
+                    <select id="filterEspecie" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
+                        <option value="">Todas</option>
+                        <option value="Perro">Perro</option>
+                        <option value="Gato">Gato</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="filterTamano" class="block text-sm font-medium text-gray-700">Tamaño</label>
+                    <select id="filterTamano" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm rounded-md">
+                        <option value="">Todos</option>
+                        <option value="Pequeño">Pequeño</option>
+                        <option value="Mediano">Mediano</option>
+                        <option value="Grande">Grande</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Edad (años)</label>
+                    <div class="mt-1 flex gap-2 items-center">
+                        <input type="number" id="fromAge" placeholder="Desde" class="w-1/2 p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-teal-500" min="0" step="1">
+                        <span class="text-gray-500">-</span>
+                        <input type="number" id="toAge" placeholder="Hasta" class="w-1/2 p-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-teal-500" min="0" step="1">
+                    </div>
+                </div>
+
+            </div>
+        </aside>
+
+        <div class="w-full md:w-3/4">
+            <div id="shelterResults" class="mb-10">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-200 pb-2">Albergues</h3>
+                <div id="shelterList" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                </div>
+                <div id="noShelterResultsMessage" class="hidden text-center text-lg text-gray-600 mt-10">
+                    No se encontraron albergues que coincidan con la búsqueda.
+                </div>
+            </div>
+
+            <div id="animalResults">
+                <h3 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-200 pb-2">Mascotas para Adopción</h3>
+                <div id="animalList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+                <div id="noAnimalResultsMessage" class="hidden text-center text-lg text-gray-600 mt-10">
+                    No se encontraron mascotas que coincidan con la búsqueda.
+                </div>
+            </div>
         </div>
-    </section>
-
+    </div>
 </main>
 
-<footer class="bg-gray-800 text-white text-center p-4 mt-12">
-    <p>&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+<footer class="bg-gray-800 text-white text-center p-4 mt-8 flex flex-col sm:flex-row justify-center sm:justify-between items-center px-6">
+    <p class="mb-2 sm:mb-0">&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+    <nav class="flex space-x-4">
+        <a href="/comoFuncionamos.html" class="text-gray-300 hover:text-white transition-colors">Cómo Funcionamos</a>
+    </nav>
 </footer>
-
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // DOM element references
-        const shelterListContainer = document.getElementById('shelter-list-container');
-        const loadingMessage = document.getElementById('loading-message');
+        const shelterList = document.getElementById('shelterList');
+        const animalList = document.getElementById('animalList');
+        const searchInput = document.getElementById('searchInput');
+        const noShelterResultsMessage = document.getElementById('noShelterResultsMessage');
+        const noAnimalResultsMessage = document.getElementById('noAnimalResultsMessage');
+        const filterEspecie = document.getElementById('filterEspecie');
+        const filterTamano = document.getElementById('filterTamano');
+        const fromAgeInput = document.getElementById('fromAge');
+        const toAgeInput = document.getElementById('toAge');
 
-        /**
-         * Fetches the list of all shelters from the API and renders them.
-         */
-        async function loadShelters() {
+
+        let allShelters = [];
+        let allAnimals = [];
+
+        // Función para obtener los datos
+        const fetchAndDisplayAllData = async () => {
             try {
-                const response = await fetch('/api/albergues');
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                const shelters = await response.json();
-
-                loadingMessage.style.display = 'none'; // Hide loading message
-                shelterListContainer.innerHTML = ''; // Clear container
-
-                shelters.forEach(shelter => {
-                    const shelterCard = document.createElement('a'); // Cambiado a <a> para enlace
-                    shelterCard.href = `/albergues/${shelter.id}`; // Enlace a la nueva página
-                    shelterCard.className = 'shelter-card block bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-gray-200'; // Estilos mejorados
-                    shelterCard.dataset.id = shelter.id;
-
-                    shelterCard.innerHTML = `
-                            <h3 class="text-2xl font-bold text-blue-700 mb-2">${shelter.nombre} ${shelter.verificado ? '<span class="text-xs font-medium text-green-600 bg-green-100 rounded-full px-2 py-1 ml-2 align-middle">Verificado</span>' : '<span class="text-xs font-medium text-yellow-600 bg-yellow-100 rounded-full px-2 py-1 ml-2 align-middle">No Verificado</span>'}</h3>
-                            <p class="text-gray-600 mt-1 flex items-center"><svg class="w-4 h-4 mr-1 text-teal-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>${shelter.ubicacion}</p>
-                            <p class="text-gray-700 mt-4 text-base leading-relaxed">${shelter.descripcion}</p>
-                        `;
-
-                    // Ya no necesitamos el addEventListener para abrir modal, el 'href' se encarga
-                    shelterListContainer.appendChild(shelterCard);
-                });
-
+                const [sheltersResponse, animalsResponse] = await Promise.all([
+                    fetch('/api/albergues'),
+                    fetch('/api/animales')
+                ]);
+                allShelters = await sheltersResponse.json();
+                allAnimals = await animalsResponse.json();
+                applyFiltersAndSearch();
             } catch (error) {
-                console.error("Failed to load shelters:", error);
-                loadingMessage.textContent = 'Error al cargar los albergues. Intenta de nuevo más tarde.';
-                loadingMessage.className = 'text-center text-xl text-red-600 col-span-full'; // Color de error
+                console.error('Error al cargar los datos:', error);
+                shelterList.innerHTML = '<p class="text-red-500 col-span-3">Error al cargar los albergues. Por favor, inténtelo de nuevo más tarde.</p>';
+                animalList.innerHTML = '<p class="text-red-500 col-span-3">Error al cargar los animales. Por favor, inténtelo de nuevo más tarde.</p>';
             }
-        }
+        };
 
-        // --- App Initialization ---
-        loadShelters();
+        // Función para renderizar los resultados
+        const displayResults = (shelters, animals) => {
+            // Renderizar albergues
+            shelterList.innerHTML = '';
+            if (shelters.length === 0) {
+                noShelterResultsMessage.classList.remove('hidden');
+            } else {
+                noShelterResultsMessage.classList.add('hidden');
+                shelters.forEach(shelter => {
+                    const card = document.createElement('a');
+                    card.href = `/albergues/${shelter.id}`;
+                    card.className = 'block bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200 p-6';
+                    card.innerHTML = `
+                            <div>
+                                <h3 class="text-2xl font-bold text-teal-700 mb-2">${shelter.nombre}</h3>
+                                <p class="text-sm text-gray-500 mb-4">${shelter.ubicacion}</p>
+                                <p class="text-gray-700 mb-4">${shelter.descripcion.substring(0, 150)}...</p>
+                            </div>
+                        `;
+                    shelterList.appendChild(card);
+                });
+            }
+
+            // Renderizar animales
+            animalList.innerHTML = '';
+            if (animals.length === 0) {
+                noAnimalResultsMessage.classList.remove('hidden');
+            } else {
+                noAnimalResultsMessage.classList.add('hidden');
+                animals.forEach(animal => {
+                    const card = document.createElement('a');
+                    card.href = `/albergues/${animal.albergue.id}/animales/${animal.id}`;
+                    card.className = 'block bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200';
+                    card.innerHTML = `
+                            <img src="${animal.fotoURL}" alt="Foto de ${animal.nombre}" class="w-full h-48 object-cover">
+                            <div class="p-4">
+                                <h4 class="text-xl font-bold text-blue-800">${animal.nombre}</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    <span class="bg-gray-200 text-gray-700 rounded-full px-2 py-1">${animal.especie}</span>
+                                    <span class="bg-gray-200 text-gray-700 rounded-full px-2 py-1">${animal.raza}</span>
+                                    <span class="bg-gray-200 text-gray-700 rounded-full px-2 py-1">${animal.edad}</span>
+                                </p>
+                                <p class="text-sm text-gray-500 mt-2">En ${animal.albergue.nombre}</p>
+                            </div>
+                        `;
+                    animalList.appendChild(card);
+                });
+            }
+        };
+
+        // Función para aplicar filtros y búsqueda
+        const applyFiltersAndSearch = () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const especieFilter = filterEspecie.value;
+            const tamanoFilter = filterTamano.value;
+
+            // Obtener y validar el rango de edad
+            const fromAge = fromAgeInput.value ? parseInt(fromAgeInput.value, 10) : null;
+            const toAge = toAgeInput.value ? parseInt(toAgeInput.value, 10) : null;
+
+            // Filtrar albergues por término de búsqueda
+            const filteredShelters = allShelters.filter(shelter => {
+                const matchesSearch = shelter.nombre.toLowerCase().includes(searchTerm) ||
+                    shelter.ubicacion.toLowerCase().includes(searchTerm) ||
+                    shelter.descripcion.toLowerCase().includes(searchTerm);
+                return matchesSearch;
+            });
+
+            // Filtrar animales por término de búsqueda y filtros avanzados
+            const filteredAnimals = allAnimals.filter(animal => {
+                const matchesSearch = animal.nombre.toLowerCase().includes(searchTerm) ||
+                    animal.especie.toLowerCase().includes(searchTerm) ||
+                    animal.raza.toLowerCase().includes(searchTerm) ||
+                    animal.albergue.nombre.toLowerCase().includes(searchTerm) ||
+                    animal.historia.toLowerCase().includes(searchTerm);
+
+                const matchesEspecie = !especieFilter || animal.especie === especieFilter;
+                const matchesTamano = !tamanoFilter || animal.tamano === tamanoFilter;
+
+                // Lógica del filtro de edad por rango (actualizada)
+                let animalAgeNumber;
+                if (animal.edad.toLowerCase().includes('mes')) {
+                    animalAgeNumber = 0.5;
+                } else {
+                    animalAgeNumber = parseInt(animal.edad.match(/\d+/)[0], 10);
+                }
+
+                const matchesAge = (!fromAge || animalAgeNumber >= fromAge) && (!toAge || animalAgeNumber <= toAge);
+
+                return matchesSearch && matchesEspecie && matchesTamano && matchesAge;
+            });
+
+            displayResults(filteredShelters, filteredAnimals);
+        };
+
+        // Escuchar eventos de búsqueda y filtros
+        searchInput.addEventListener('input', applyFiltersAndSearch);
+        filterEspecie.addEventListener('change', applyFiltersAndSearch);
+        filterTamano.addEventListener('change', applyFiltersAndSearch);
+        fromAgeInput.addEventListener('input', applyFiltersAndSearch);
+        toAgeInput.addEventListener('input', applyFiltersAndSearch);
+
+
+        // Llamar a la función principal al cargar la página
+        fetchAndDisplayAllData();
     });
 </script>
 </body>

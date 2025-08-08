@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinarias - Colitas Felices</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-image: linear-gradient(to bottom right, #f0f9ff, #e0f2fe); }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
+<header class="bg-gradient-to-r from-teal-600 to-blue-700 text-white shadow-lg py-6">
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+            <h1 class="text-4xl font-extrabold text-center sm:text-left">
+                <a href="/" class="text-white hover:text-gray-100 transition-colors">Colitas Felices</a>
+            </h1>
+            <nav class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
+                <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors bg-teal-700 bg-opacity-70">Directorio</a>
+                <a href="/veterinarias.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Veterinarias</a>
+                <a href="/donaciones.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Donaciones</a>
+                <a href="/contacto.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Contacto</a>
+                <a href="/nosotros.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Nosotros</a>
+            </nav>
+        </div>
+        <p class="text-lg opacity-90 text-center sm:text-left">Hogares donde empiezan nuevas vidas.</p>
+    </div>
+</header>
+
+<main class="container mx-auto px-6 py-10 flex-grow">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center sm:text-left">Directorio de Veterinarias</h2>
+
+    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-lg shadow-md mb-8">
+        <p class="font-bold">¡Encuentra el mejor servicio!</p>
+        <p class="text-sm">Consulta nuestro directorio para encontrar las mejores clínicas veterinarias en la región de Ica, con información de contacto y horarios de atención.</p>
+    </div>
+
+    <div id="veterinariasList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    </div>
+
+    <div id="noVeterinariasMessage" class="hidden text-center text-lg text-gray-600 mt-10">
+        No se encontraron veterinarias registradas en este momento.
+    </div>
+</main>
+
+<footer class="bg-gray-800 text-white text-center p-4 mt-8 flex flex-col sm:flex-row justify-center sm:justify-between items-center px-6">
+    <p class="mb-2 sm:mb-0">&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+    <nav class="flex space-x-4">
+        <a href="/comoFuncionamos.html" class="text-gray-300 hover:text-white transition-colors">Cómo Funcionamos</a>
+    </nav>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const veterinariasList = document.getElementById('veterinariasList');
+        const noVeterinariasMessage = document.getElementById('noVeterinariasMessage');
+
+        const fetchAndDisplayVeterinarias = async () => {
+            try {
+                const response = await fetch('/api/veterinarias');
+                const veterinarias = await response.json();
+                displayVeterinarias(veterinarias);
+            } catch (error) {
+                console.error('Error al cargar los datos de las veterinarias:', error);
+                veterinariasList.innerHTML = '<p class="text-red-500">Error al cargar los datos. Por favor, inténtelo de nuevo más tarde.</p>';
+            }
+        };
+
+        const displayVeterinarias = (veterinarias) => {
+            veterinariasList.innerHTML = '';
+            if (veterinarias.length === 0) {
+                noVeterinariasMessage.classList.remove('hidden');
+            } else {
+                noVeterinariasMessage.classList.add('hidden');
+                veterinarias.forEach(vet => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden border border-gray-200 p-6 flex flex-col items-center text-center';
+
+                    const ubicacionHtml = vet.ubicacion ? `<p class="text-sm text-gray-500 mb-4">${vet.ubicacion}</p>` : '';
+                    const mapsLink = vet.ubicacion ? `http://maps.google.com/?q=${encodeURIComponent(vet.ubicacion)}` : '#';
+
+                    card.innerHTML = `
+                            <h3 class="text-2xl font-bold text-teal-700 mb-2">${vet.nombre}</h3>
+                            ${ubicacionHtml}
+                            <p class="text-gray-700 mb-4 flex-grow">${vet.descripcion}</p>
+                            <div class="mt-auto w-full space-y-2">
+                                <a href="tel:${vet.telefono}" class="w-full inline-flex items-center justify-center bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300">
+                                    <i class="fas fa-phone-alt mr-2"></i>Llamar
+                                </a>
+                                <a href="mailto:${vet.email}" class="w-full inline-flex items-center justify-center bg-yellow-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-yellow-600 transition-colors duration-300">
+                                    <i class="fas fa-envelope mr-2"></i>Correo
+                                </a>
+                                <a href="${mapsLink}" target="_blank" class="w-full inline-flex items-center justify-center bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>Ver en mapa
+                                </a>
+                            </div>
+                        `;
+                    veterinariasList.appendChild(card);
+                });
+            }
+        };
+
+        fetchAndDisplayVeterinarias();
+    });
+</script>
 </body>
 </html>

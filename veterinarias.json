@@ -6,11 +6,13 @@
     "telefono": "+51 912 345 678",
     "email": "contacto@vetsanfrancisco.pe",
     "servicios": [
-      "Consultas",
-      "Vacunación",
-      "Cirugías",
-      "Emergencias 24h"
-    ]
+      "Consultas generales",
+      "Vacunación y desparasitación",
+      "Cirugías y hospitalización",
+      "Emergencias 24h",
+      "Estética canina y felina"
+    ],
+    "descripcion": "La Clínica Veterinaria San Francisco es una institución dedicada al cuidado integral de la salud de sus mascotas. Con un equipo de profesionales experimentados, ofrecen una amplia gama de servicios, desde consultas de rutina hasta cirugías complejas."
   },
   {
     "id": "vet-2",
@@ -19,10 +21,26 @@
     "telefono": "+51 976 543 210",
     "email": "info@vethuacachina.com",
     "servicios": [
-      "Placas de Rayos X",
-      "Ecografías",
-      "Laboratorio Clínico",
-      "Farmacia Veterinaria"
-    ]
+      "Placas de Rayos X y Ecografías",
+      "Análisis de laboratorio clínico",
+      "Farmacia veterinaria",
+      "Venta de alimentos y accesorios"
+    ],
+    "descripcion": "Ubicada en el corazón de Huacachina, esta veterinaria se especializa en diagnósticos por imagen y análisis de laboratorio, brindando precisión y rapidez para el bienestar de tu mascota."
+  },
+  {
+    "id": "vet-3",
+    "nombre": "Hospital Veterinario Colitas Felices",
+    "ubicacion": "Av. Los Maestros 789, Ica, Perú",
+    "telefono": "+51 965 432 109",
+    "email": "hospital@hvcolitasfelices.pe",
+    "servicios": [
+      "Consultas de especialidad (dermatología, cardiología)",
+      "Cirugías de alta complejidad",
+      "Odontología veterinaria",
+      "Consultoría nutricional",
+      "Cuidados intensivos"
+    ],
+    "descripcion": "El Hospital Veterinario Colitas Felices ofrece un servicio especializado para casos que requieren atención avanzada. Cuentan con equipos modernos y especialistas para brindar el mejor cuidado posible a tu mascota."
   }
 ]
