@@ -28,19 +28,21 @@
 <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
 
 <header class="bg-gradient-to-r from-teal-600 to-blue-700 text-white shadow-lg py-6">
-  <div class="container mx-auto px-6">
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
-      <h1 class="text-4xl font-extrabold text-center sm:text-left">
-        <a href="/" class="text-white hover:text-gray-100 transition-colors">Colitas Felices</a>
-      </h1>
-      <nav class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
-        <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Directorio</a>
-        <a href="/contacto.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Contacto</a>
-        <a href="/nosotros.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Nosotros</a>
-      </nav>
+    <div class="container mx-auto px-6">
+        <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+            <h1 class="text-4xl font-extrabold text-center sm:text-left">
+                <a href="/" class="text-white hover:text-gray-100 transition-colors">Colitas Felices</a>
+            </h1>
+            <nav class="mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end gap-2 sm:gap-4">
+                <a href="/" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors bg-teal-700 bg-opacity-70">Directorio</a>
+                <a href="/veterinarias.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Veterinarias</a>
+                <a href="/donaciones.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Donaciones</a>
+                <a href="/contacto.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Contacto</a>
+                <a href="/nosotros.html" class="text-white hover:text-gray-100 px-3 py-1 sm:px-4 sm:py-2 rounded-lg transition-colors">Nosotros</a>
+            </nav>
+        </div>
+        <p class="text-lg opacity-90 text-center sm:text-left">Hogares donde empiezan nuevas vidas.</p>
     </div>
-    <p class="text-lg opacity-90 text-center sm:text-left">Hogares donde empiezan nuevas vidas.</p>
-  </div>
 </header>
 
 <main class="container mx-auto px-6 py-10 flex-grow">
@@ -99,8 +101,11 @@
 
 </main>
 
-<footer class="bg-gray-800 text-white text-center p-4 mt-8">
-  <p>&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+<footer class="bg-gray-800 text-white text-center p-4 mt-8 flex flex-col sm:flex-row justify-center sm:justify-between items-center px-6">
+    <p class="mb-2 sm:mb-0">&copy; 2025 Colitas Felices. Todos los derechos reservados.</p>
+    <nav class="flex space-x-4">
+        <a href="/comoFuncionamos.html" class="text-gray-300 hover:text-white transition-colors">Cómo Funcionamos</a>
+    </nav>
 </footer>
 
 </body>
